@@ -43,7 +43,9 @@
   font-style: normal;
 }
 
-
+* {
+  scroll-behavior: smooth;
+}
 
 h1,
 h2,
@@ -51,7 +53,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Clash Grotesk Bold', sans-serif;
+  font-family: 'Violet Sans', sans-serif;
 }
 
 body {

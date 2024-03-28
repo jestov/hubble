@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from   'next/image';
 import { getPosts } from '../utils/mdx-utils';
+import { getSolutions } from '../utils/mdx-utils-solutions';
 import { useEffect } from 'react';
 
 
@@ -14,13 +15,14 @@ import YoutubeIcon from '../components/icons/YoutubeIcon';
 import LinkedinIcon from '../components/icons/LinkedinIcon';
 import AmazonIcon from '../components/icons/AmazonIcon';
 import SpotifyIcon from '../components/icons/SpotifyIcon';
+import CTA from '../components/cta';
 import Button from '../components/Button';
 import ButtonBook from '../components/ButtonBook';
 import Marquee from '../components/marquee';
 import { getGlobalData } from '../utils/global-data';
 import SEO from '../components/SEO';
 
-export default function Index({ posts, globalData }) {
+export default function Index({ posts, solutions, globalData }) {
 
   const CalendlyWidget = () => {
     useEffect(() => {
@@ -89,7 +91,7 @@ export default function Index({ posts, globalData }) {
   const tabs_programs = [
     {
       key: 'benefits',
-      title: <img src="/img/hubble_benefits.png" className='h-8' alt="Company Culture" />,
+      title: <img src="/img/hubble_benefits.png" className='h-8 object-contain' alt="Company Culture" />,
       content: (
         <div className="flex flex-col md:flex-row items-center py-12 gap-14">
           <div className="md:w-1/2 relative">
@@ -129,7 +131,7 @@ export default function Index({ posts, globalData }) {
     },
     {
       key: 'partners',
-      title: <img src="/img/hubble_partners.png" className='h-8' alt="Company Culture" />,
+      title: <img src="/img/hubble_partners.png" className='h-8 object-contain' alt="Company Culture" />,
       content: (
         <div className="flex flex-col md:flex-row items-center py-12 gap-14">
           <div className="md:w-1/2 relative h-[700px]">
@@ -170,7 +172,7 @@ export default function Index({ posts, globalData }) {
     },
     {
       key: 'university',
-      title: <img src="/img/hubble_university.png" className='h-8' alt="Company Culture" />,
+      title: <img src="/img/hubble_university.png" className='h-8 object-contain' alt="Company Culture" />,
       content: (
         <div className="flex flex-col md:flex-row items-center py-12 gap-14">
           <div className="md:w-1/2 relative">
@@ -288,7 +290,7 @@ export default function Index({ posts, globalData }) {
   return (
     <Layout>
       <SEO title={globalData.name} description={globalData.blogTitle} />
-      <main className="w-full min-h-screen bg-[url('/img/hubble.jpg')] bg-cover flex flex-col justify-center items-center gap-10 text-white font-clash px-32">
+      <main className="w-full min-h-screen bg-[url('/img/hubble.jpg')] bg-cover flex flex-col justify-center items-center gap-10 text-white font-clash lg:px-32 px-8">
         <h1 className="text-5xl lg:text-7xl text-center font-clash font-medium">
         Your HR Partners:
         <br />
@@ -297,43 +299,80 @@ export default function Index({ posts, globalData }) {
         <p className="text-center text-lg lg:text-2xl opacity-90 font-violet max-w-3xl">
         At Hubble, we redefine work by creating innovative HR solutions customized for your unique needs. Our goal is to integrate with both current and future talent, changing work for visionary businesses.
         </p>
-        <div className="flex gap-4">
-          <Button href="#" className="bg-gradient-to-r from-green to-secondary hover:from-secondary hover:to-green !text-lg text-white">Free consultation</Button>
+        <div className="flex flex-col md:flex-row gap-4">
+          <Button href="#" className="bg-gradient-to-r from-green to-secondary hover:from-secondary hover:to-green !text-lg text-base text-white">Free consultation</Button>
           <Button href="#solutions" className="bg-transparent border border-gray-300 !text-lg text-white hover:border-white">Know solutions</Button>
         </div>
       </main>
 
 
-      <section className="flex flex-col gap-16 w-full min-h-[50vh] flex flex-col py-32 px-[15px] lg:px-48">
-        <div className="container mx-auto p-4">
-          
+      <section className="flex flex-col gap-8 my-20 lg:my-40 max-w-7xl min-w-6xl mx-auto px-[30px]">
+        <div className='flex flex-col gap-4 items-start'>
+
+          <div className='flex flex-col md:flex-row justify-between items-start md:items-center w-full gap-6'>
+            <div className='flex flex-col gap-4'>
+              <h3 className="text-primary text-base tracking-widest uppercase">
+               Our solutions
+              </h3>
+                <h2 className="text-4xl lg:text-5xl text-primary relative">
+                    <span className='z-10 relative'>We have the best<br />Solutions for you</span>
+                    <span className="absolute bottom-1.5 z-0 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-400 via-blue-300 to-teal-300"></span>
+                </h2>
+            </div>
+            <p className='max-w-xl text-base text-opacity-80 text-primary'>
+            At Hubble, we offer experience in human resources through our integral solution that satisfies all your talent needs. We do not see ourselves simply as a service provider, but as an extension of your own team, effectively becoming your dedicated Human Resources department.
+            </p>
+          </div>
         </div>
-      </section>
+        <ul className="flex flex-col">
+            {solutions.map((solution) => (
+              <li
+                key={solution.number}
+                className="group overflow-hidden backdrop-blur-lg flex justify-between hover:text-secondary hover:bg-white hover:bg-opacity-20 transition border-b border-secondary border-opacity-10"
+              >
+                <Link
+                  as={`/solutions/${solution.filePath.replace(/\.mdx?$/, '')}`}
+                  href={`/solutions/[slug]`} legacyBehavior
+                >
+                  <a className="py-6 lg:py-10 px-1.5 lg:px-6 lg:px-10 block focus:outline-none focus:ring-4 text-primary grid grid-cols-3 gap-14 font-violet w-full">
+                    <h2 className="text-lg lg:text-2xl font-violet text-inherit leading-tight">{solution.data.title}</h2>
+                    {solution.data.description && (
+                      <p className="text-sm lg:text-base text-primary text-opacity-80">
+                        {solution.data.description}
+                      </p>
+                    )}
+                    <div className='flex items-center gap-2 text-base ml-auto rotate-45 group-hover:rotate-0 transition duration-300'><ArrowIcon /></div>
+                  </a>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
 
 
 
       <section className="flex flex-col items-center justify-center gap-8 w-full min-h-[50vh] flex flex-col justify-center py-14 bg-[url('/img/bg-alt.jpg')] bg-cover text-white py-24">
-        <h2 className="text-5xl font-violet  text-center">
-          Book your free consultation now
+        <h2 className="text-4xl lg:text-5xl text-center">
+          Book your <span className='relative'><span className='z-10 relative text-[#48DBEC]'>free consultation</span><span className="absolute bottom-1.5 z-0 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-400 via-blue-300 to-teal-500"></span></span> now
         </h2>
-        <p className="text-center text-lg lg:text-2xl opacity-90 font-violet max-w-3xl">
+        <p className="text-center text-lg lg:text-2xl opacity-90 max-w-3xl">
         Have HR difficulties? Contact us to explore potential solutions.
         </p>
-        <div className='w-full'>
+        <div className='w-full px-[15px]'>
           <CalendlyWidget />
         </div>
       </section>
 
 
 
-      <section className="flex flex-col gap-16 w-full min-h-[50vh] flex flex-col py-32 px-[15px] lg:px-48">
+      <section className="flex flex-col gap-16 w-full min-h-[50vh] flex flex-col py-32 px-[15px] lg:px-48 bg-gradient-to-b from-white to-transparent">
         <div className='flex flex-col gap-4 items-start'>
-          <h3 className="font-violet text-primary text-base tracking-widest uppercase">
+          <h3 className="text-primary text-base tracking-widest uppercase">
             HOW WE WORK
           </h3>
-          <h2 className="text-5xl font-violet text-primary relative">
+          <h2 className="text-4xl lg:text-5xl font-violet text-primary relative">
             <span className='z-10 relative'>Our workflow</span>
-            <span class="absolute bottom-1.5 z-0 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-400 via-blue-300 to-teal-300"></span>
+            <span className="absolute bottom-1.5 z-0 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-400 via-blue-300 to-teal-300"></span>
           </h2>
           <p className="text-base lg:text-lg opacity-90 font-violet text-primary max-w-3xl">
             We add value by working hand-in-hand with our clients towards defined objectives.
@@ -349,7 +388,7 @@ export default function Index({ posts, globalData }) {
                 </div>
               ) : (
                 <>
-                  <div className="flex flex-col sm:flex-row items-start mb-1 group-last:before:hidden before:absolute before:left-2 sm:before:left-0 before:h-full before:px-px before:bg-secondary sm:before:ml-[6.5rem] before:self-start before:-translate-x-1/2 before:translate-y-3 after:absolute after:left-2 sm:after:left-0 after:w-4 after:h-4 after:bg-blue-100 after:border-2 after:box-content after:border-secondary after:rounded-full sm:after:ml-[6.5rem] after:-translate-x-1/2 after:translate-y-1.5">
+                  <div className="flex flex-col sm:flex-row items-start mb-1 group-last:before:hidden before:absolute before:left-2 sm:before:left-0 before:h-full before:px-px before:bg-secondary sm:before:ml-[6.5rem] before:self-start before:-translate-x-1/2 before:translate-y-3 after:absolute after:left-2 sm:after:left-0 after:w-4 after:h-4 after:bg-white after:border-2 after:box-content after:border-secondary after:rounded-full sm:after:ml-[6.5rem] after:-translate-x-1/2 after:translate-y-1.5">
                     <time className="font-violet tracking-widest sm:absolute left-0 translate-y-0.5 inline-flex items-center justify-center text-xs font-semibold uppercase w-20 h-6 mb-3 sm:mb-0 text-white bg-gradient-to-r from-green to-emerald-400 rounded-full">{event.date}</time>
                     <div className="text-2xl text-primary">{event.title}</div>
                   </div>
@@ -368,23 +407,23 @@ export default function Index({ posts, globalData }) {
  
 
 
-      <div className="container mx-auto px-14 py-24 flex flex-col gap-10 items-center justify-center">
+      <div className="container mx-auto px-[30px] lg:px-14 py-24 flex flex-col gap-10 items-center justify-center">
         <div className='flex flex-col gap-4 items-start w-full'>
-          <h3 className="font-violet text-primary text-base tracking-widest uppercase">
-            CASES
+          <h3 className="text-primary text-base tracking-widest uppercase">
+            Testimonials
           </h3>
-          <h2 className="text-5xl font-violet text-primary relative">
+          <h2 className="text-4xl lg:text-5xl text-primary relative">
             <span className='z-10 relative'>Our clients <br />
 guarantee us</span>
-            <span class="absolute bottom-1.5 z-0 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-400 via-blue-300 to-teal-300"></span>
+            <span className="absolute bottom-1.5 z-0 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-400 via-blue-300 to-teal-300"></span>
           </h2>
         </div>
-        <div class="flex justify-center gap-8 px-4 py-8">
+        <div className="flex justify-center gap-8 px-4 py-8">
       
 
-          <div className="flex justify-center gap-8">
+          <div className="flex flex-col lg:flex-row justify-center gap-8">
           {cardsData.map((card, index) => (
-            <div key={index} className={`w-full bg-white py-36 px-14 bg-white bg-opacity-10 border border-gray-300`}>
+            <div key={index} className={`w-full bg-white py-12 lg:py-36 px-6 lg:px-14 bg-white bg-opacity-10 border border-secondary border-opacity-10`}>
               <div className="flex flex-col p-4 gap-8 items-start">
                 <Image className="mb-3  object-contain max-h-20" src={card.src} alt={card.alt} width={220} height={140}/>
                 <h5 className={`mb-1 text-2xl font-violet font-medium text-gray-900`}>{card.title}</h5>
@@ -401,7 +440,7 @@ guarantee us</span>
                   alt={`Imagen ${index + 1}`}
                   width={200} // Establece el ancho deseado
                   height={150} // Establece la altura deseada
-                  className="max-w-28 object-contain grayscale hover:grayscale-0 transition-all duration-300"
+                  className="max-w-28 object-contain grayscale hover:grayscale-0 transition-all duration-300 m-auto"
                 />
             ))}
           </div>
@@ -410,12 +449,12 @@ guarantee us</span>
 
 
 
-      <div className="container mx-auto px-14 py-24 flex flex-col gap-18 items-center justify-center">
+      <div className="container mx-auto px-[30px] px-14 py-24 flex flex-col gap-18 items-center justify-center">
         <div className='flex flex-col gap-4 items-center'>
-          <h3 className="font-violet text-primary text-base tracking-widest uppercase">
+          <h3 className="text-primary text-base tracking-widest uppercase text-center">
             Human capital disrupter | speaker | author | AI hr
           </h3>
-          <h2 className="text-5xl font-violet text-primary relative">
+          <h2 className="text-4xl lg:text-5xl text-primary relative text-center">
             <span className='z-10 relative'>Our founder</span> <span className="text-secondary font-belgro tracking-tight">DORA VALDEZ</span>
           </h2>
           <div className="flex gap-6 items-center">
@@ -429,9 +468,9 @@ guarantee us</span>
               alt="Dora Valdez"
               width={500}
               height={600}
-              className="w-full rounded-br-[45px] h-[850px] object-cover"
+              className="w-full rounded-br-[45px] md:h-[750px] lg:h-[850px] object-cover"
             />
-            <Image src="/img/noise.svg" width={100} height={100} className="absolute -bottom-8 -left-8"/> 
+            <Image src="/img/noise.svg" width={100} height={100} className="absolute -bottom-8 -left-6"/> 
              <ButtonBook href="/booking" className="absolute bottom-8 right-8">
                 Book with Dora
               </ButtonBook>
@@ -460,36 +499,36 @@ guarantee us</span>
       </div>
 
 
-      <section className="flex flex-col gap-8 my-40 max-w-7xl mx-auto">
+      <section className="flex flex-col gap-8 my-40 px-[30px] max-w-7xl mx-auto">
         <div className='flex flex-col gap-4 items-start'>
-          <h3 className="font-violet text-primary text-base tracking-widest uppercase">
+          <h3 className="text-primary text-base tracking-widest uppercase">
            The most recent posts
           </h3>
           <div className='flex justify-between w-full'>
-            <h2 className="text-5xl font-violet text-primary relative">
+            <h2 className="text-4xl lg:text-5xl font-violet text-primary relative">
                 <span className='z-10 relative'>Blog</span>
-                <span class="absolute bottom-1.5 z-0 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-400 via-blue-300 to-teal-300"></span>
+                <span className="absolute bottom-1.5 z-0 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-400 via-blue-300 to-teal-300"></span>
             </h2>
             <Button href="/blog" className="text-white bg-primary">
                 View all posts
             </Button>
           </div>
         </div>
-        <ul className="grid grid-cols-3 gap-8">
+        <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {posts.slice(0,3).map((post) => (
               <li
                 key={post.filePath}
-                className="overflow-hidden backdrop-blur-lg flex flex-col justify-between bg-white dark:bg-black dark:bg-opacity-30 bg-opacity-30 hover:bg-opacity-20 dark:hover:bg-opacity-50 transition border border-gray-800 dark:border-white border-opacity-10 dark:border-opacity-10"
+                className="overflow-hidden backdrop-blur-lg flex flex-col justify-between bg-white bg-opacity-30 hover:bg-opacity-20 transition border border-secondary border-opacity-10 border-opacity-10"
               >
                 <Link
-                  as={`/posts/${post.filePath.replace(/\.mdx?$/, '')}`}
-                  href={`/posts/[slug]`} legacyBehavior
+                  as={`/blog/${post.filePath.replace(/\.mdx?$/, '')}`}
+                  href={`/blog/[slug]`} legacyBehavior
                 >
                     <Image src={post.data.img} alt={post.data.title} width={400} height={200} className='w-full'/>
                 </Link>
                 <Link
-                  as={`/posts/${post.filePath.replace(/\.mdx?$/, '')}`}
-                  href={`/posts/[slug]`} legacyBehavior
+                  as={`/blog/${post.filePath.replace(/\.mdx?$/, '')}`}
+                  href={`/blog/[slug]`} legacyBehavior
                 >
                   <a className="py-6 lg:py-10 px-6 lg:px-10 block focus:outline-none focus:ring-4 text-primary flex flex-col gap-6 font-violet">
                     {post.data.date && (
@@ -511,15 +550,23 @@ guarantee us</span>
           </ul>
         </section>
 
-        <section className="flex flex-col gap-16 w-full bg-white rounded-lg m-10 flex flex-col items-center py-32 px-[15px] lg:px-48">
-          <h2 className="text-5xl font-violet text-primary relative">
+        <section className="flex flex-col gap-16 w-full bg-gradient-to-b from-white to-transparent rounded-lg m-10 flex flex-col items-center py-28 px-[15px] lg:px-48" id="programs">
+          <h2 className="text-4xl lg:text-5xl text-primary relative">
             <span className='z-10 relative'>Our programs</span>
-            <span class="absolute bottom-1.5 z-0 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-400 via-blue-300 to-teal-300"></span>
+            <span className="absolute bottom-1.5 z-0 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-400 via-blue-300 to-teal-300"></span>
           </h2>
-          <div className="container mx-auto p-4 flex flex-col ">
+          <div className="container mx-auto flex flex-col">
             <Tab tabs={tabs_programs} />
           </div>
         </section>
+
+
+        <CTA 
+        titleElement={<span>Unlock your Company's<br />potential with us</span>} 
+        buttonLabel="Free consultation" 
+        buttonLink="https://calendly.com/doravaldez" 
+      />
+
 
 
         <div className='my-10 w-full'>
@@ -533,11 +580,11 @@ guarantee us</span>
 
       <GradientBackground
         variant="large"
-        className="fixed top-20 opacity-40 dark:opacity-60"
+        className="fixed top-20 opacity-40"
       />
       <GradientBackground
         variant="small"
-        className="absolute bottom-0 opacity-20 dark:opacity-10"
+        className="absolute bottom-0 opacity-20"
       />
     </Layout>
   );
@@ -545,7 +592,8 @@ guarantee us</span>
 
 export function getStaticProps() {
   const posts = getPosts();
+  const solutions = getSolutions();
   const globalData = getGlobalData();
 
-  return { props: { posts, globalData } };
+  return { props: { posts, solutions, globalData } };
 }

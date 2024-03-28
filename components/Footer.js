@@ -14,26 +14,26 @@ const menuItems = [
   {
     title: "Our solutions",
     links: [
-      { name: "HR as a Service", href: "#" },
-      { name: "Hiring", href: "#" },
-      { name: "People & culture", href: "#" },
-      { name: "OKRS", href: "#" },
-      { name: "HR Training & Development", href: "#" },
+      { name: "HR as a Service", href: "/solutions/hr-as-a-service" },
+      { name: "Hiring", href: "/solutions/hiring" },
+      { name: "People & culture", href: "/solutions/culture" },
+      { name: "OKRS", href: "/solutions/okrs" },
+      { name: "HR Training & Development", href: "/solutions/hiring" },
     ],
   },
   {
     title: "Our programs",
     links: [
-      { name: "Hubble Partners", href: "#" },
-      { name: "Hubble Benefits", href: "#" },
+      { name: "Hubble Partners", href: "/#programs" },
+      { name: "Hubble Benefits", href: "/#programs" },
     ],
   },
   {
     title: "Navigation",
     links: [
-      { name: "Blog", href: "#" },
-      { name: "Careers", href: "#" },
-      { name: "Contact", href: "#" },
+      { name: "Blog", href: "/blog" },
+      { name: "Careers", href: "/careers" },
+      { name: "Contact", href: "/contact" },
     ],
   },
 ];
@@ -128,12 +128,10 @@ const ThemeSwitcher = () => {
 };
 
 export default function Footer() {
-  const currentYear = new Date().getFullYear();
-
-
   return (
-    <footer className="py-16 flex flex-col py-24 px-48 justify-center gap-32 text-white bg-[url('/img/footer-bg.jpg')] bg-cover min-h-[80vh]">
-      <div className="flex justify-between">
+    
+    <footer className="py-16 flex flex-col py-24 px-[30px] lg:px-48 justify-center gap-32 text-white bg-[url('/img/footer-bg.jpg')] bg-center bg-cover bg-no-repeat min-h-[80vh]">
+      <div className="flex flex-col gap-20 lg:gap-0 lg:flex-row justify-between">
         <div className="flex flex-col gap-14 min-w-[250px]">
           <Logo color="#fff" />
           <ul className="flex flex-col gap-3 uppercase tracking-widest font-violet text-sm">
@@ -185,7 +183,6 @@ export default function Footer() {
             © {new Date().getFullYear()} WeHubble.
           </p>
         </div>
-        <ThemeSwitcher />
       </div>
     </footer>
   );

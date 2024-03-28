@@ -5,11 +5,11 @@ const Tab = ({ tabs }) => {
 
   return (
     <div>
-      <div className="flex flex-wrap border-b-2 border-gray-100 justify-center gap-14">
+      <div className="flex border-b-2 border-gray-100 justify-center gap-4 md:gap-14">
         {tabs.map((tab) => (
           <button
             key={tab.key}
-            className={`p-6 sm:p-6 ${activeTab === tab.key ? 'border-b-2 border-primary' : 'text-gray-500 border-transparent opacity-30 hover:opacity-50'}`}
+            className={`p-2 md:p-6 ${activeTab === tab.key ? 'border-b-2 border-primary' : 'text-gray-500 border-transparent opacity-30 hover:opacity-50'}`}
             onClick={() => setActiveTab(tab.key)}
           >
             {typeof tab.title === 'string' ? (

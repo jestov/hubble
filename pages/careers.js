@@ -10,14 +10,14 @@ export default function Index({ posts, globalData }) {
     <Layout>
       <SEO title={globalData.name} description={globalData.blogTitle} />
 
-      <section className="flex flex-col gap-8 my-40 max-w-7xl mx-auto min-w-[70vw]">
+      <section className="flex flex-col gap-8 my-20 lg:my-40 max-w-7xl mx-auto min-w-[70vw] px-[30px]">
         <div className='flex flex-col gap-4 items-start'>
           <h3 className="font-violet text-primary text-base tracking-widest uppercase">
            Our vacancies
           </h3>
-          <h2 className="text-5xl font-violet text-primary relative">
+          <h2 className="text-4xl lg:text-5xl font-violet text-primary relative">
             <span className='z-10 relative'>Careers</span>
-            <span class="absolute bottom-1.5 z-0 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-400 via-blue-300 to-teal-300"></span>
+            <span className="absolute bottom-1.5 z-0 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-400 via-blue-300 to-teal-300"></span>
           </h2>
           <p className="text-base lg:text-lg opacity-90 font-violet text-primary max-w-xl">
             If you love to serve others, learn new things and dare to do things differently, we want to meet you. Be part of our Talent team and learn about the opportunities we have for you.

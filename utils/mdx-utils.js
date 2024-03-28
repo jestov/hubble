@@ -72,6 +72,7 @@ export const getNextPostBySlug = (slug) => {
   return {
     title: post.data.title,
     slug: nextPostSlug,
+    img: post.data.img,
   };
 };
 
@@ -90,5 +91,6 @@ export const getPreviousPostBySlug = (slug) => {
   return {
     title: post.data.title,
     slug: previousPostSlug,
+    img: post.data.img,
   };
 };

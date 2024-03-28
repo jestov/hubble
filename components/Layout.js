@@ -68,7 +68,7 @@ export default function Layout({ children }) {
       <Link href="https://web.whatsapp.com/send?phone=528112776495" target="_blank" className='z-5'>
         <WhatsappIcon className='fixed z-5 bottom-10 left-10 w-14 h-14 cursor-pointer'/>
       </Link>
-      <div className='bg-secondary fixed z-5 right-6 bottom-6 w-[400px] min-h-32 rounded-tl-[45px] text-white p-7 flex flex-col gap-6'>
+      <div className='bg-secondary fixed z-5 right-6 bottom-6 w-[400px] min-h-32 rounded-tl-[45px] text-white p-7 flex flex-col gap-6 md:visible invisible'>
         <h4 className='font-violet'>Have HR difficulties? <br /> Contact us to explore potential solutions.</h4>
         <Button href="https://calendly.com/doravaldez" className="bg-white text-primary hover:bg-gray-100">Book your free consultation</Button>
       </div>

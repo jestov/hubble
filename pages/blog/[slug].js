@@ -43,43 +43,49 @@ export default function PostPage({
 
       <article className="px-6 md:px-0 py-48 max-w-7xl font-violet text-primary flex gap-10 flex-col">
         <header>
-          <h3 className="text-xl text-gray-500 dark:text-white dark:opacity-60 mb-4 font-violet uppercase">
+          <h3 className="text-xl text-gray-500 mb-4 font-violet uppercase">
             {frontMatter.date}
           </h3>  
-          <h1 className="font-violet text-primary text-3xl md:text-5xl dark:text-white">
+          <h1 className="font-violet text-primary text-3xl md:text-5xl">
             {frontMatter.title}
           </h1>
         </header>
         <Image src={frontMatter.img} alt={frontMatter.title} width={800} height={400}  className='w-full'/>
         <main>
-          <article className="prose dark:prose-dark">
-            <MDXRemote {...source} components={components} />
+          <article className="w-full prose mx-auto !text-primary !font-violet">
+            <MDXRemote {...source} components={components} className="font-violet text-primary" />
           </article>
         </main>
-        <div className="grid md:grid-cols-2 lg:-mx-24 mt-12">
+        <div className="grid md:grid-cols-2 lg:-mx-24 mt-12 gap-8">
           {prevPost && (
-            <Link href={`/posts/${prevPost.slug}`} legacyBehavior>
-              <a className="py-8 px-10 text-center md:text-right first:rounded-t-lg md:first:rounded-tr-none md:first:rounded-l-lg last:rounded-r-lg first last:rounded-b-lg backdrop-blur-lg bg-white dark:bg-black dark:bg-opacity-30 bg-opacity-10 hover:bg-opacity-20 dark:hover:bg-opacity-50 transition border border-gray-800 dark:border-white border-opacity-10 dark:border-opacity-10 last:border-t md:border-r-0 md:last:border-r md:last:rounded-r-none flex flex-col">
-                <p className="uppercase text-gray-500 mb-4 dark:text-white dark:opacity-60">
-                  Previous
-                </p>
-                <h4 className="text-2xl text-gray-700 mb-6 dark:text-white">
-                  {prevPost.title}
-                </h4>
-                <ArrowIcon className="transform rotate-180 mx-auto md:mr-0 mt-auto" />
+            <Link href={`/blog/${prevPost.slug}`} legacyBehavior>
+              <a className="overflow-hidden text-center md:text-right rounded-[24px] first backdrop-blur-lg bg-white bg-opacity-10 hover:bg-opacity-20 transition border border-gray-secondary border-opacity-10 flex flex-col">
+                <Image src={prevPost.img} alt={prevPost.title} width={800} height={400}  className='w-full'/>
+                <div className='p-8'>
+                  <p className="uppercase text-gray-500 mb-4 text-base tracking-wider">
+                    Previous
+                  </p>
+                  <h4 className="text-2xl lg:text-3xl text-gray-700 mb-6">
+                    {prevPost.title}
+                  </h4>
+                  <ArrowIcon className="transform rotate-180 mx-auto md:mr-0 mt-auto" />
+                </div>
               </a>
             </Link>
           )}
           {nextPost && (
-            <Link href={`/posts/${nextPost.slug}`} legacyBehavior> 
-              <a className="py-8 px-10 text-center md:text-left md:first:rounded-t-lg last:rounded-b-lg first:rounded-l-lg md:last:rounded-bl-none md:last:rounded-r-lg backdrop-blur-lg bg-white dark:bg-black dark:bg-opacity-30 bg-opacity-10 hover:bg-opacity-20 dark:hover:bg-opacity-50 transition border border-gray-800 dark:border-white border-opacity-10 dark:border-opacity-10 border-t-0 first:border-t first:rounded-t-lg md:border-t border-b-0 last:border-b flex flex-col">
-                <p className="uppercase text-gray-500 mb-4 dark:text-white dark:opacity-60">
-                  Next
-                </p>
-                <h4 className="text-2xl text-gray-700 mb-6 dark:text-white">
-                  {nextPost.title}
-                </h4>
-                <ArrowIcon className="mt-auto mx-auto md:ml-0" />
+            <Link href={`/blog/${nextPost.slug}`} legacyBehavior> 
+              <a className="overflow-hidden text-center md:text-left rounded-[24px] last backdrop-blur-lg bg-white bg-opacity-10 hover:bg-opacity-20 transition border border-gray-secondary border-opacity-10 flex flex-col">
+              <Image src={nextPost.img} alt={nextPost.title} width={800} height={400}  className='w-full'/>
+<div className='p-8'>
+                  <p className="uppercase text-gray-500 mb-4 text-base tracking-wider">
+                    Next
+                  </p>
+                  <h4 className="text-2xl lg:text-3xl text-gray-700 mb-6">
+                    {nextPost.title}
+                  </h4>
+                  <ArrowIcon className="transform mx-auto md:ml-0 mt-auto" />
+                </div>
               </a>
             </Link>
           )}
